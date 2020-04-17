@@ -31,10 +31,10 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("lol"),
+        title: Text("thou shalt not pass"),
       ),
       body: Padding(
-        padding: EdgeInsets.all(40),
+        padding: EdgeInsets.symmetric(horizontal: 50, vertical: 140),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -44,10 +44,17 @@ class _LoginPageState extends State<LoginPage> {
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 18),
               ),
-              TextField(
-                obscureText: true,
-                autocorrect: false,
-                onSubmitted: _handleSubmitted
+              Padding(
+                padding: EdgeInsets.only(top: 100),
+                child: TextField(
+                  obscureText: true,
+                  autocorrect: false,
+                  onSubmitted: _handleSubmitted,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Please input your very own passcode"
+                  ),
+                )
               )
             ],
           ),
